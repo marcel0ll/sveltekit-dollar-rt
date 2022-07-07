@@ -1,4 +1,3 @@
-
 /**
  * Returns a Promise which resolves with a value in form of a tuple.
  * @param promiseFn A Promise to resolve as a tuple.
@@ -24,8 +23,6 @@ export function tuplify (fn) {
 const tupleFetch = tuplify(fetch);
 
 export async function get ({params}) {
-  // const exchangeRate = 5;
-
   const endpoint = 'https://api.exchangerate.host/latest?base=USD&symbols=USD,BRL'
   const [error, exchangeRate] = await tupleFetch(endpoint);
 
