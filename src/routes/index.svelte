@@ -10,16 +10,19 @@
 	const huskyQuote = exchangeRate;
 	const btgQuote = exchangeRate;
 	const payoneerQuote = exchangeRate;
+	const interQuote = exchangeRate;
 
 	$: husky = (value - WIRE_TRANSFER_FEE) * (1 - 0.01) * huskyQuote;
 	$: btg = (value - WIRE_TRANSFER_FEE) * (1 - 0.009) * btgQuote;
 	$: payoneer = (value - PAYONEER_FEE) * (1 - 0.02) * payoneerQuote;
+  $: inter = (value) * (1 - 0.01465) * interQuote;
 
-	$: max = Math.max(husky, btg, payoneer);
+	$: max = Math.max(husky, btg, payoneer, inter);
 
 	$: isHusky = husky === max;
 	$: isBtg = btg === max;
 	$: isPayoneer = payoneer === max;
+  $: isInter = inter === max;
 
 	$: list = [
 		{
@@ -39,6 +42,12 @@
 			value: payoneer,
 			isBest: isPayoneer,
 			formula: `(valor - ${PAYONEER_FEE}) * (1 - 2%)`
+		},
+		{
+			name: 'Inter',
+			value: inter,
+			isBest: isInter,
+			formula: `(valor) * (1 - 1.1%)`
 		}
 	].sort((a, b) => b.value - a.value);
 </script>
